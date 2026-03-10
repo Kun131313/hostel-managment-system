@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1772901076469",
+    "full_name": "hello",
+    "email": "jasnoor1116.becse24@chitkara.edu.in",
+    "password": "1234",
+    "created_at": "2026-03-07T16:31:16.470Z"
+  },
+  {
+    "id": "1773063268495",
+    "full_name": "kello",
+    "email": "jasnoor@gmail.com",
+    "password": "12345",
+    "created_at": "2026-03-09T13:34:28.495Z"
+  },
+  {
+    "id": "1773066777829",
+    "full_name": "Karman Gill",
+    "email": "karmangill47@gmail.com",
+    "password": "Karman2030",
+    "created_at": "2026-03-09T14:32:57.831Z"
+  }
+]
