@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <!-- Error Notification -->
+    <% if (typeof error !== 'undefined' && error) { %>
+        <div class="notification error" id="errorNotification">
+            <div class="notification-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span><%= error %></span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Success Notification -->
+    <% if (typeof success !== 'undefined' && success) { %>
+        <div class="notification success" id="successNotification">
+            <div class="notification-content">
+                <i class="fas fa-check-circle"></i>
+                <span><%= success %></span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Complaint Form Section -->
+    <section class="complaint-form-section">
+        <div class="container">
+            <div class="form-header">
+                <h2 class="section-title">Submit Your Complaint</h2>
+                <p class="form-description">
+                    Fill out the form below to submit your complaint. We'll ensure it reaches the right department for quick resolution.
+                </p>
+            </div>
+
+            <div class="form-container">
+                <form action="/submit-complaint" method="post" class="complaint-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentName">
+                                <i class="fas fa-user"></i>
+                                Student Name *
+                            </label>
+                            <input type="text" id="studentName" name="studentName" required 
+                                   value="<%= user ? user.full_name : '' %>"
+                                   <%= user ? 'readonly' : '' %>>
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="roomNumber">
+                                <i class="fas fa-door-open"></i>
+                                Room Number *
+                            </label>
+                            <input type="text" id="roomNumber" name="roomNumber" required>
+                            <span class="error-message" id="roomError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="category">
+                                <i class="fas fa-tags"></i>
+                                Complaint Category *
+                            </label>
+                            <select id="category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="electrical">Electrical Issues</option>
+                                <option value="plumbing">Plumbing Problems</option>
+                                <option value="furniture">Furniture Damage</option>
+                                <option value="cleaning">Cleaning & Hygiene</option>
+                                <option value="internet">Internet/WiFi Issues</option>
+                                <option value="security">Security Concerns</option>
+                                <option value="noise">Noise Disturbance</option>
+                                <option value="maintenance">General Maintenance</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <span class="error-message" id="categoryError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="priority">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Priority Level *
+                            </label>
+                            <select id="priority" name="priority" required>
+                                <option value="">Select Priority</option>
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                            </select>
+                            <span class="error-message" id="priorityError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">
+                            <i class="fas fa-comment-alt"></i>
+                            Detailed Description *
+                        </label>
+                        <textarea id="description" name="description" rows="6" required 
+                                  placeholder="Please provide a detailed description of your complaint..."></textarea>
+                        <span class="error-message" id="descriptionError"></span>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="contactNumber">
+                            <i class="fas fa-phone"></i>
+                            Contact Number (Optional)
+                        </label>
+                        <input type="tel" id="contactNumber" name="contactNumber" 
+                               placeholder="Enter your contact number">
+                        <span class="error-message" id="contactError"></span>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="photoUpload">
+                            <i class="fas fa-camera"></i>
+                            Upload Photos (Optional)
+                        </label>
+                        <div class="file-upload-container">
+                            <input type="file" id="photoUpload" name="photoUpload" 
+                                   accept="image/*" multiple>
+                            <div class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Click to upload or drag and drop</span>
+                                <small>PNG, JPG, GIF up to 10MB each</small>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="image-preview-container"></div>
+                        <span class="error-message" id="photoError"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Submit Complaint
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i>
+                            Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message">
+                <div class="success-content">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Complaint Submitted Successfully!</h3>
+                    <p>Your complaint has been registered and will be processed soon. You can track its status in the Previous Complaints section.</p>
+                    <a href="previous-complaints.html" class="btn btn-primary">
+                        <i class="fas fa-list"></i>
+                        View My Complaints
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info Section -->
+    <section class="quick-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Response Time</h4>
+                    <p>Most complaints are addressed within 24-48 hours during business days.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4>Need Help?</h4>
+                    <p>Contact the hostel administration office for urgent matters.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h4>Track Status</h4>
+                    <p>Visit the Previous Complaints page to check the status of your submissions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

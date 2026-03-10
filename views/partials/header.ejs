@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fa-solid fa-solidLarge fa-user-secret">‌</i>
+                <span>EAST SIDE FLOW</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link active">Home</a></li>
+                <li><a href="/apply-complaint" class="nav-link">Apply Complaint</a></li>
+                <li><a href="/previous-complaints" class="nav-link">Previous Complaints</a></li>
+                <li><a href="/about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <% if (typeof user !== 'undefined' && user) { %>
+                    <div class="user-dropdown">
+                        <button class="btn btn-user">
+                            <i class="fas fa-user-circle"></i>
+                            <%= user.full_name %>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="/logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/signin" class="btn btn-sign-in">
+                        <i class="fas fa-sign-in-alt"></i>
+                        LOG IN
+                    </a>
+                <% } %>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

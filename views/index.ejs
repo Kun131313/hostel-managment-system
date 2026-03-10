@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Hostel Complaint</span>
+                    <br>Management System
+                </h1>
+                <p class="hero-description">
+                    Streamline your hostel experience with our modern digital complaint management platform. 
+                    Submit, track, and resolve issues efficiently with our user-friendly system.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/apply-complaint" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i>
+                        Apply Complaint
+                    </a>
+                    <a href="/previous-complaints" class="btn btn-secondary">
+                        <i class="fas fa-list"></i>
+                        Previous Complaints
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our System?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <img src="/images/quick-submission.jpg" alt="Quick Submission" class="feature-image">
+                    <h3>Quick Submission</h3>
+                    <p>Submit complaints in seconds with our intuitive form interface designed for efficiency.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <img src="/images/track-progress.jpg" alt="Track Progress" class="feature-image">
+                    <h3>Track Progress</h3>
+                    <p>Monitor the status of your complaints in real-time and receive updates on resolutions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <img src="/images/secure-private.jpg" alt="Secure & Private" class="feature-image">
+                    <h3>Secure & Private</h3>
+                    <p>Your complaints are handled with utmost confidentiality and stored securely.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <img src="/images/student-centric.jpg" alt="Student-Centric" class="feature-image">
+                    <h3>Student-Centric</h3>
+                    <p>Designed specifically for students to ensure their voices are heard and addressed.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <img src="/images/mobile-friendly.jpg" alt="Mobile Friendly" class="feature-image">
+                    <h3>Mobile Friendly</h3>
+                    <p>Access the system from any device with our fully responsive design.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <img src="/images/24-7-availability.jpg" alt="24/7 Availability" class="feature-image">
+                    <h3>24/7 Availability</h3>
+                    <p>Submit complaints anytime, anywhere. No waiting for office hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="500">0</div>
+                    <div class="stat-label">Complaints Resolved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="98">0</div>
+                    <div class="stat-label">Satisfaction Rate %</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Avg Response Time (hrs)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="1000">0</div>
+                    <div class="stat-label">Active Students</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

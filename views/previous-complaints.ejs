@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <!-- Success Notification -->
+    <% if (typeof success !== 'undefined' && success) { %>
+        <div class="notification success" id="successNotification">
+            <div class="notification-content">
+                <i class="fas fa-check-circle"></i>
+                <span><%= success %></span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Complaints List Section -->
+    <section class="complaints-list-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Your Complaint History</h2>
+                <p class="section-description">
+                    Track the status and progress of all your submitted complaints.
+                </p>
+            </div>
+
+            <!-- Filter and Search Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search complaints...">
+                </div>
+                <div class="filter-options">
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <select id="priorityFilter">
+                        <option value="">All Priority</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Complaints Container -->
+            <div id="complaintsContainer" class="complaints-container">
+                <% if (complaints && complaints.length > 0) { %>
+                    <% complaints.forEach(function(complaint) { %>
+                        <div class="complaint-card" data-status="<%= complaint.status %>" data-priority="<%= complaint.priority %>">
+                            <div class="complaint-header">
+                                <div class="complaint-info">
+                                    <h3><%= complaint.category.charAt(0).toUpperCase() + complaint.category.slice(1) %></h3>
+                                    <span class="complaint-id">ID: <%= complaint.id %></span>
+                                </div>
+                                <div class="complaint-status">
+                                    <span class="status-badge status-<%= complaint.status %>">
+                                        <%= complaint.status.charAt(0).toUpperCase() + complaint.status.slice(1) %>
+                                    </span>
+                                    <span class="priority-badge priority-<%= complaint.priority %>">
+                                        <%= complaint.priority.charAt(0).toUpperCase() + complaint.priority.slice(1) %>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="complaint-body">
+                                <div class="complaint-details">
+                                    <p><strong>Description:</strong> <%= complaint.description %></p>
+                                    <div class="complaint-meta">
+                                        <span><i class="fas fa-user"></i> <%= complaint.studentName %></span>
+                                        <span><i class="fas fa-door-open"></i> Room <%= complaint.roomNumber %></span>
+                                        <span><i class="fas fa-calendar"></i> <%= new Date(complaint.created_at).toLocaleDateString() %></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="no-complaints" id="noComplaintsMessage">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>No Complaints Found</h3>
+                        <p>You haven't submitted any complaints yet. Click the button below to submit your first complaint.</p>
+                        <a href="/apply-complaint" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i>
+                            Submit Your First Complaint
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+
+            <!-- Statistics Summary -->
+            <div class="stats-summary" id="statsSummary" style="display: none;">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalComplaints">0</div>
+                    <div class="stat-label">Total Complaints</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="pendingCount">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="inProgressCount">0</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="resolvedCount">0</div>
+                    <div class="stat-label">Resolved</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="/javascripts/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="about-hero-content">
+                <h1 class="about-title">
+                    <span class="gradient-text">About</span>
+                    <br><i class="fa-solid fa-solidLarge fa-user-secret">‌</i>  East Side Flow
+                </h1>
+                <p class="about-description">
+                    A comprehensive digital solution designed to revolutionize hostel management through efficient complaint handling and student-centric services.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-content">
+                <div class="mission-text">
+                    <h2>Our Mission</h2>
+                    <p style="color: rgba(23, 0, 36, 0.8);">
+                        To transform hostel living experiences by providing a seamless, transparent, and efficient platform for students to voice their concerns and receive timely resolutions. We believe that every student deserves a comfortable and well-maintained living environment.
+                    </p>
+                    <div class="mission-stats">
+                        <div class="mission-stat">
+                            <i class="fas fa-users"></i>
+                            <span>Student-First Approach</span>
+                        </div>
+                        <div class="mission-stat">
+                            <i class="fas fa-bolt"></i>
+                            <span>Quick Resolution</span>
+                        </div>
+                        <div class="mission-stat">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure & Private</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-image">
+                    <img src="/images/mission.jpg" alt="Our Mission" class="mission-img">
+                    <div class="floating-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="features-overview">
+        <div class="container">
+            <h2 class="section-title">System Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Modern Interface</h3>
+                    <p>Clean, intuitive design built with the latest web technologies for optimal user experience across all devices.</p>
+                    <img src="/images/modern-interface.jpg" alt="Modern Interface" class="feature-img">
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Smart Storage</h3>
+                    <p>Local storage technology ensures your complaint data is securely saved and accessible anytime, anywhere.</p>
+                    <img src="/images/smart-storage.jpg" alt="Smart Storage" class="feature-img">
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Real-time Tracking</h3>
+                    <p>Monitor your complaint status from submission to resolution with our comprehensive tracking system.</p>
+                    <img src="/images/tracking.jpg" alt="Real-time Tracking" class="feature-img">
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Access the system seamlessly from desktop, tablet, or mobile devices with our fully responsive layout.</p>
+                    <img src="/images/responsive.jpg" alt="Responsive Design" class="feature-img">
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Data Security</h3>
+                    <p>Your personal information and complaint details are protected with industry-standard security measures.</p>
+                    <img src="/images/security.jpg" alt="Data Security" class="feature-img">
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Easy Integration</h3>
+                    <p>Designed to integrate seamlessly with existing hostel management systems for enhanced efficiency.</p>
+                    <img src="/images/integration.jpg" alt="Easy Integration" class="feature-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engineered By -->
+    <section class="engineered-by">
+        <div class="container">
+            <h2 class="section-title">Engineered By</h2>
+            <div class="engineered-grid">
+                <div class="engineered-card">
+                    <div class="engineered-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h4>Jashanpreet Singh</h4>
+                    <p>2410991109</p>
+                </div>
+                <div class="engineered-card">
+                    <div class="engineered-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h4>Jasnoor Singh</h4>
+                    <p>2410991116</p>
+                </div>
+                <div class="engineered-card">
+                    <div class="engineered-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h4>Karmanpreet Singh</h4>
+                    <p>2410991130</p>
+                </div>
+                <div class="engineered-card">
+                    <div class="engineered-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h4>Kunwarpreet Singh</h4>
+                    <p>2410991137</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Get Started Today</h2>
+                <p>Experience the future of hostel management. Submit your first complaint and see the difference.</p>
+                <div class="cta-buttons">
+                    <a href="/apply-complaint" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i>
+                        Apply Complaint
+                    </a>
+                    <a href="/" class="btn btn-secondary">
+                        <i class="fas fa-home"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+    <script src="/javascripts/script.js"></script>
+
+</body>
+</html>

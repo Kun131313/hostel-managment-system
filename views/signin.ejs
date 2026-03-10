@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome — Sign In / Sign Up</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/stylesheets/signin.css" />
+</head>
+
+<body>
+
+    <%- include('partials/header') %>
+
+    <!-- Error Notification -->
+    <% if (typeof error !== 'undefined' && error) { %>
+        <div class="notification error" id="errorNotification">
+            <div class="notification-content">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span><%= error %></span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Success Notification -->
+    <% if (typeof success !== 'undefined' && success) { %>
+        <div class="notification success" id="successNotification">
+            <div class="notification-content">
+                <i class="fas fa-check-circle"></i>
+                <span><%= success %></span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    <% } %>
+
+  <div class="page-wrapper">
+    <div class="auth-card">
+
+      <!-- Noise texture overlay -->
+      <div class="noise" aria-hidden="true"></div>
+
+      <!--
+        IMPORTANT: Radio inputs MUST be placed here — directly inside
+        .auth-card but OUTSIDE .card-body — so that CSS sibling selectors
+        (#tab-signin:checked ~ .card-body ...) can reach .card-body elements.
+        FIX: In the original they were mistakenly placed INSIDE .auth-card
+        after .noise, which is correct, but the CSS sibling selector chain
+        requires them to be siblings of .card-body. ✓ This placement is correct.
+      -->
+      <input type="radio" id="tab-signin" name="auth-tab" checked />
+      <input type="radio" id="tab-signup" name="auth-tab" />
+
+      <div class="card-body">
+
+        <!-- ── Tab Bar ──────────────────────────────────────────────── -->
+        <div class="tab-bar" role="tablist">
+          <label class="tab-label" for="tab-signin" role="tab">Sign In</label>
+          <label class="tab-label" for="tab-signup" role="tab">Sign Up</label>
+        </div>
+
+        <!-- ── Sliding Panels ───────────────────────────────────────── -->
+        <div class="panels-wrapper">
+          <div class="panels-track">
+
+            <!-- ============================================================ -->
+            <!--  SIGN IN PANEL                                                -->
+            <!-- ============================================================ -->
+            <div class="panel" role="tabpanel">
+
+              <div class="brand">
+                <div class="brand-logo">
+                  <i class="fa-solid fa-solidLarge fa-user-clock">‌</i>
+                </div>
+                <h2>Welcome back</h2>
+                <p>Sign in to continue to your account</p>
+              </div>
+
+              <!-- FIX: Added action="#" and method="post" for proper form semantics -->
+              <form action="/signin" method="post" novalidate>
+
+                <!-- Email -->
+                <div class="form-group">
+                  <!-- FIX: Added for/id pairing so clicking label focuses the input -->
+                  <label for="signin-email">Email</label>
+                  <div class="input-wrap">
+                    <i class="fa-regular fa-envelope icon" aria-hidden="true"></i>
+                    <input
+                      type="email"
+                      id="signin-email"
+                      name="email"
+                      placeholder="you@example.com"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                  <label for="signin-password">Password</label>
+                  <div class="input-wrap">
+                    <i class="fa-solid fa-lock icon" aria-hidden="true"></i>
+                    <input
+                      type="password"
+                      id="signin-password"
+                      name="password"
+                      placeholder="••••••••"
+                      autocomplete="current-password"
+                      required
+                    />
+                    <button type="button" class="password-toggle" onclick="togglePassword('signin-password', this)">
+                      <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Forgot password link -->
+                <div class="forgot">
+                  <a href="#">Forgot password?</a>
+                </div>
+
+                <!-- FIX: Added type="submit" so the button submits the form correctly -->
+                <button type="submit" class="btn-primary">Sign In</button>
+
+                <!-- Divider -->
+                <div class="divider">
+                  <span></span><p>or continue with</p><span></span>
+                </div>
+
+                <!-- Social buttons -->
+                <div class="social-row">
+                  <a href="#" class="btn-social">
+                    <i class="fa-brands fa-google"></i> Google
+                  </a>
+                  <a href="#" class="btn-social">
+                    <i class="fa-brands fa-github"></i> GitHub
+                  </a>
+                </div>
+
+                <!-- Switch to Sign Up -->
+                <div class="switch-text">
+                  Don't have an account?
+                  <label for="tab-signup">Create one</label>
+                </div>
+
+              </form>
+            </div><!-- /Sign In Panel -->
+
+            <!-- ============================================================ -->
+            <!--  SIGN UP PANEL                                                -->
+            <!-- ============================================================ -->
+            <div class="panel" role="tabpanel">
+
+              <div class="brand">
+                <div class="brand-logo">
+                  <i class="fa-solid fa-solidLarge fa-user-plus">‌</i>
+                </div>
+                <h2>Create Account</h2>
+                <p>Join thousands of users today</p>
+              </div>
+
+              <form action="/signup" method="post" novalidate>
+
+                <!-- Full Name -->
+                <div class="form-group">
+                  <label for="signup-name">Full Name</label>
+                  <div class="input-wrap">
+                    <i class="fa-regular fa-user icon" aria-hidden="true"></i>
+                    <input
+                      type="text"
+                      id="signup-name"
+                      name="full_name"
+                      placeholder="Jane Doe"
+                      autocomplete="name"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                  <label for="signup-email">Email</label>
+                  <div class="input-wrap">
+                    <i class="fa-regular fa-envelope icon" aria-hidden="true"></i>
+                    <input
+                      type="email"
+                      id="signup-email"
+                      name="email"
+                      placeholder="you@example.com"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                  <label for="signup-password">Password</label>
+                  <div class="input-wrap">
+                    <i class="fa-solid fa-lock icon" aria-hidden="true"></i>
+                    <input
+                      type="password"
+                      id="signup-password"
+                      name="password"
+                      placeholder="Min. 8 characters"
+                      autocomplete="new-password"
+                      minlength="8"
+                      required
+                    />
+                    <button type="button" class="password-toggle" onclick="togglePassword('signup-password', this)">
+                      <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                  <label for="signup-confirm">Confirm Password</label>
+                  <div class="input-wrap">
+                    <i class="fa-solid fa-lock-open icon" aria-hidden="true"></i>
+                    <input
+                      type="password"
+                      id="signup-confirm"
+                      name="confirm_password"
+                      placeholder="Repeat your password"
+                      autocomplete="new-password"
+                      required
+                    />
+                    <button type="button" class="password-toggle" onclick="togglePassword('signup-confirm', this)">
+                      <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- FIX: Added type="submit" -->
+                <button type="submit" class="btn-primary">Create Account</button>
+
+                <!-- Divider -->
+                <div class="divider">
+                  <span></span><p>or sign up with</p><span></span>
+                </div>
+
+                <!-- Social buttons -->
+                <div class="social-row">
+                  <a href="#" class="btn-social">
+                    <i class="fa-brands fa-google"></i> Google
+                  </a>
+                  <a href="#" class="btn-social">
+                    <i class="fa-brands fa-github"></i> GitHub
+                  </a>
+                </div>
+
+                <!-- Switch to Sign In -->
+                <div class="switch-text">
+                  Already have an account?
+                  <label for="tab-signin">Sign in</label>
+                </div>
+
+                <!-- Terms -->
+                <p class="terms-note">
+                  By creating an account you agree to our
+                  <a href="#">Terms of Service</a> and
+                  <a href="#">Privacy Policy</a>.
+                </p>
+
+              </form>
+            </div><!-- /Sign Up Panel -->
+
+          </div><!-- /panels-track -->
+        </div><!-- /panels-wrapper -->
+
+      </div><!-- /card-body -->
+    </div><!-- /auth-card -->
+  </div><!-- /page-wrapper -->
+
+  
+    
+    <%- include('partials/footer') %>
+
+  <script src="/javascripts/script"></script>
+  
+  <script>
+    function togglePassword(inputId, button) {
+      const input = document.getElementById(inputId);
+      const icon = button.querySelector('i');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-regular', 'fa-eye');
+        icon.classList.add('fa-regular', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-regular', 'fa-eye-slash');
+        icon.classList.add('fa-regular', 'fa-eye');
+      }
+    }
+  </script>
+</body>
+</html>
