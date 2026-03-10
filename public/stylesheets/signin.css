@@ -1,0 +1,374 @@
+
+:root {
+  --accent:       #c9a96e;
+  --accent-light: #e8c99a;
+  --accent-glow:  rgba(201, 169, 110, 0.22);
+
+  --text-primary:     #f0ece4;
+  --text-secondary:   #8a8a9a;
+  --text-placeholder: #4a4a5e;
+
+  --card-bg:     rgba(255, 255, 255, 0.12);
+  --card-border: rgba(255, 255, 255, 0.18);
+
+  --input-bg:    rgba(255, 255, 255, 0.08);
+  --input-focus: rgba(201, 169, 110, 0.35);
+
+  --radius:    24px;
+  --radius-sm:  8px;
+  --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* -- Reset -------------------------------------------------------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+
+/* -- Body with background image ----------------------------------- */
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  color: var(--text-primary);
+  min-height: 100%;
+
+  /* Background image */
+  background-image:
+    linear-gradient(rgba(10, 14, 26, 0.45), rgba(10, 14, 26, 0.45)),
+    url('/images/signin.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* -- Page wrapper ------------------------------------------------- */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 24px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* -- Auth card ---------------------------------------------------- */
+.auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+
+  /* Slightly frosted glass effect */
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+
+  /* Subtle blur - not too heavy, just enough to frost the card */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    0 0 40px var(--accent-glow);
+
+  animation: card-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  overflow: hidden;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Gold top accent line */
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 12%; right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* Noise texture overlay */
+.noise {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* -- Radio inputs ------------------------------------------------- */
+#tab-signin, #tab-signup { display: none; }
+
+/* -- Card body ---------------------------------------------------- */
+.card-body { position: relative; z-index: 1; }
+
+/* -- Tab bar ------------------------------------------------------ */
+.tab-bar {
+  display: flex;
+  padding: 16px 24px 0;
+}
+
+.tab-label {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition);
+  user-select: none;
+}
+
+#tab-signin:checked ~ .card-body .tab-bar label[for="tab-signin"],
+#tab-signup:checked  ~ .card-body .tab-bar label[for="tab-signup"] {
+  color: var(--accent-light);
+  border-bottom-color: var(--accent);
+}
+
+/* -- Panel slider ------------------------------------------------- */
+.panels-wrapper {
+  overflow: hidden;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.panels-track {
+  display: flex;
+  width: 200%;
+  transition: transform var(--transition);
+}
+
+#tab-signin:checked ~ .card-body .panels-track { transform: translateX(0); }
+#tab-signup:checked  ~ .card-body .panels-track { transform: translateX(-50%); }
+
+/* -- Panels ------------------------------------------------------- */
+.panel {
+  width: 50%;
+  flex-shrink: 0;
+  padding: 20px 26px 26px;
+}
+
+/* Sign Up panel: hidden scrollbar so it scrolls without showing bar */
+.panel:nth-child(2) {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.panel:nth-child(2)::-webkit-scrollbar { display: none; }
+
+/* -- Brand -------------------------------------------------------- */
+.brand {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.brand-logo {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--accent), #a0732a);
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-shadow: 0 6px 18px var(--accent-glow);
+}
+
+.brand-logo i { color: #fff; font-size: 1.1rem; }
+
+.brand h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
+}
+
+.brand p { color: var(--text-secondary); font-size: 0.8rem; font-weight: 300; }
+
+/* -- Form groups -------------------------------------------------- */
+.form-group { margin-bottom: 12px; }
+
+.form-group > label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+/* -- Input with icon ---------------------------------------------- */
+.input-wrap { position: relative; }
+
+.input-wrap .icon {
+  position: absolute;
+  left: 18px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-placeholder);
+  font-size: 0.8rem;
+  pointer-events: none;
+  transition: color var(--transition);
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 11px 45px 11px 65px !important;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.86rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.input-wrap input::placeholder { color: var(--text-placeholder); font-weight: 300; }
+
+.input-wrap input:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px var(--input-focus);
+}
+
+.input-wrap:focus-within .icon { color: var(--accent); }
+
+/* -- Password Toggle Button ---------------------------------------- */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-placeholder);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+  font-size: 0.9rem;
+}
+
+.password-toggle:hover {
+  color: var(--accent-light);
+  background: rgba(201, 169, 110, 0.1);
+}
+
+.password-toggle:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* -- Forgot password ---------------------------------------------- */
+.forgot { text-align: right; margin-top: -4px; margin-bottom: 14px; }
+
+.forgot a {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.forgot a:hover { color: var(--accent-light); }
+
+/* -- Primary button ----------------------------------------------- */
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, var(--accent) 0%, #a67c40 100%);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-top: 4px;
+  box-shadow: 0 6px 18px rgba(201, 169, 110, 0.3);
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 55%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.55s ease;
+}
+
+.btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 12px 26px rgba(201, 169, 110, 0.35); }
+.btn-primary:hover::after { left: 130%; }
+.btn-primary:active { transform: translateY(0); }
+
+/* -- Divider ------------------------------------------------------ */
+.divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
+.divider span { flex: 1; height: 1px; background: var(--card-border); }
+.divider p { font-size: 0.7rem; color: var(--text-placeholder); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+
+/* -- Social buttons ----------------------------------------------- */
+.social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.btn-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.btn-social:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.22); color: var(--text-primary); }
+.btn-social .fa-google { color: #EA4335; }
+.btn-social .fa-github { color: #ccc; }
+
+/* -- Switch text -------------------------------------------------- */
+.switch-text { text-align: center; margin-top: 14px; font-size: 0.78rem; color: var(--text-secondary); }
+
+.switch-text label {
+  color: var(--accent-light);
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition);
+}
+.switch-text label:hover { color: var(--accent); }
+
+/* -- Terms note --------------------------------------------------- */
+.terms-note { font-size: 0.68rem; color: var(--text-placeholder); text-align: center; margin-top: 12px; line-height: 1.65; }
+.terms-note a { color: var(--text-secondary); text-decoration: underline; text-underline-offset: 2px; transition: color var(--transition); }
+.terms-note a:hover { color: var(--accent-light); }
+
+/* -- Responsive --------------------------------------------------- */
+@media (max-width: 900px) {
+  .page-wrapper { justify-content: center; padding: 24px 20px; }
+}
+
+@media (max-width: 500px) {
+  .panel { padding: 18px 18px 22px; }
+  .social-row { grid-template-columns: 1fr; }
+  .brand h2 { font-size: 1.45rem; }
+}
